@@ -22,6 +22,8 @@ const Body = () => {
       });
       //after get res back stre details in redux store
       dispatch(addUser(res.data));
+      // console.log(res.data);
+      // return navigate("/");
     } catch (err) {
       //handle authentication error
       if (err.status === 401) {

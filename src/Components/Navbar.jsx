@@ -17,7 +17,6 @@ const Navbar = () => {
       return navigate("/login");
     } catch (err) {
       return navigate("/error");
-      // console.log(err);
     }
   };
 
@@ -38,11 +37,7 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="user photo "
-                  src={user.photoUrl}
-                  // "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img alt="user photo" src={user.photoUrl} />
               </div>
             </div>
             <ul

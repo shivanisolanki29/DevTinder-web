@@ -39,7 +39,7 @@ const Login = () => {
           <div>
             <label className="form-control w-full max-w-xs">
               <div className="label">
-                <span className="label-text">EmailId:</span>
+                <span className="label-text">Email Id:</span>
               </div>
               <input
                 type="text"
@@ -50,7 +50,7 @@ const Login = () => {
             </label>
             <label className="form-control w-full max-w-xs">
               <div className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text">Password:</span>
               </div>
               <input
                 type="text"

@@ -59,16 +59,16 @@ const Requests = () => {
           return (
             <div
               key={_id}
-              className="flex justify-between items-center w-2/3 my-4 p-4 bg-base-300 rounded-lg mx-auto"
+              className="flex flex-row items-center w-4/5 my-4 p-4 bg-base-300 rounded-lg mx-auto"
             >
-              <div className="">
+              <div className="w-28">
                 <img
                   className="w-20 h-20 rounded-full"
                   src={photoUrl}
                   alt="photo"
                 />
               </div>
-              <div className="text-left mx-4 ">
+              <div className="text-left mx-4 w-3/4">
                 <h2 className="font-bold text-xl">
                   {firstName + " " + lastName}
                 </h2>
@@ -77,16 +77,16 @@ const Requests = () => {
                 )}
                 <p>{about}</p>
               </div>
-              <div className="card-actions justify-center my-4">
+              <div className="card-actions justify-center my-4 w-1/4">
                 <button
                   className="btn btn-secondary mx-2"
-                  onClick={()=>reviewRequest("accepted", req._id)}
+                  onClick={() => reviewRequest("accepted", req._id)}
                 >
                   Accept
                 </button>
                 <button
                   className="btn btn-primary mx-2"
-                  onClick={()=>reviewRequest("rejected", req._id)}
+                  onClick={() => reviewRequest("rejected", req._id)}
                 >
                   Reject
                 </button>

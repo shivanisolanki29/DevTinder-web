@@ -8,8 +8,11 @@ import { addUser } from "../Utils/userSlice";
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  const [email, setEmail] = useState("akshay@gmail.com");
-  const [password, setPassword] = useState("Akshay@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,12 +34,54 @@ const Login = () => {
     }
   };
 
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, email, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
+    }
+  };
+
   return (
-    <div className="flex justify-center mt-28">
+    <div className="flex justify-center mt-10">
       <div className="card bg-base-300 text-neutral-content w-96">
         <div className="card-body items-center text-center">
-          <h2 className="carditle">Login</h2>
+          <h2 className="carditle text-xl font-semibold">
+            {isLoginForm ? "Login" : "Sign Up"}
+          </h2>
           <div>
+            {!isLoginForm && (
+              <>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">First Name:</span>
+                  </div>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full max-w-xs"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">Last Name:</span>
+                  </div>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full max-w-xs"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+              </>
+            )}
             <label className="form-control w-full max-w-xs">
               <div className="label">
                 <span className="label-text">Email Id:</span>
@@ -50,10 +95,10 @@ const Login = () => {
             </label>
             <label className="form-control w-full max-w-xs">
               <div className="label">
-                <span className="label-text">Password:</span>
+                <span className="label-text">Password :</span>
               </div>
               <input
-                type="text"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input input-bordered w-full max-w-xs"
@@ -62,10 +107,41 @@ const Login = () => {
           </div>
           <p className="text-rose-500">{error}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary" onClick={handleLogin}>
-              Accept
+            <button
+              className="btn btn-primary"
+              onClick={isLoginForm ? handleLogin : handleSignUp}
+            >
+              {isLoginForm ? "Login" : "SignUp"}
             </button>
-            <button className="btn btn-ghost">Deny</button>
+          </div>
+          <div>
+            <p className="py-2 text-green-300">
+              {isLoginForm ? (
+                <>
+                  New User? Sign Up{" "}
+                  <span
+                    onClick={() => setIsLoginForm((value) => !value)}
+                    style={{
+                      color: " rgb(254, 252, 232)",
+                      textDecoration: "underline",
+                      cursor: "pointer",
+                    }}
+                  >
+                    here
+                  </span>
+                </>
+              ) : (
+                <>
+                  Existing User? Login {""}
+                  <span
+                    onClick={() => setIsLoginForm((value) => !value)}
+                    className="text-l underline text-yellow-50 cursor-pointer"
+                  >
+                    here
+                  </span>
+                </>
+              )}
+            </p>
           </div>
         </div>
       </div>
